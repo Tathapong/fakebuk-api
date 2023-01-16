@@ -3,6 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { User } = require("../models/index");
+const { Op } = require("sequelize");
 
 // function of generate token
 const genToken = (payload) =>
@@ -40,6 +41,27 @@ exports.register = async (req, res, next) => {
 };
 exports.login = async (req, res, next) => {
   try {
+    const { emailOrMobile, password } = req.body;
+    // SELECT * FROM users WHERE email = emailOrMobile OR mobile = emailOrMobil
+
+    if (typeof emailOrMobile !== "string" || typeof password !== "string") {
+      throw new AppError("email address or mobile or password is invalid", 400);
+    }
+
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [{ email: emailOrMobile }, { mobile: emailOrMobile }]
+      }
+    });
+
+    if (!user) throw new AppError("email address or mobile or password is invalid", 400);
+
+    const isCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isCorrect) throw new AppError("email address or mobile or password is invalid", 400);
+
+    const token = genToken({ id: user.id });
+    return res.status(200).json({ token });
   } catch (err) {
     next(err);
   }
