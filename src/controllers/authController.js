@@ -2,6 +2,7 @@ const AppError = require("../utilities/appError");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const { User } = require("../models/index");
 const { Op } = require("sequelize");
 
@@ -65,4 +66,8 @@ exports.login = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+exports.getMe = async (req, res, next) => {
+  res.status(200).json({ user: req.user });
 };
