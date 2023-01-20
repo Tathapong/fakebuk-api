@@ -15,13 +15,13 @@ module.exports = (sequelize, DataTypes) => {
   Friend.associate = (db) => {
     Friend.belongsTo(db.User, {
       as: "Requester",
-      foriegnKey: { name: "requesterId", allowNull: false },
+      foreignKey: { name: "requesterId", allowNull: false },
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT"
     });
     Friend.belongsTo(db.User, {
       as: "Accepter",
-      foriegnKey: { name: "accepterId", allowNull: false },
+      foreignKey: { name: "accepterId", allowNull: false },
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT"
     });

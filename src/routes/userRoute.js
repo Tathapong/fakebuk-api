@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
-const authenticate = require("../middlewares/authenticate");
+
 const upload = require("../middlewares/upload");
 
 // การใช้ upload ต้องใช้เป็น method มี 3 วิธี
@@ -11,12 +11,13 @@ const upload = require("../middlewares/upload");
 
 // หลังจากทำ middleware upload เสร็จมันจะเก็บไฟล์ไว้ใน destination และจะเก้บข้อมูลไฟล์ที่เรา upload ไว้ที่ req.files (array)
 router.route("/").patch(
-  authenticate,
   upload.fields([
     { name: "profileImage", maxCount: 1 },
     { name: "coverImage", maxCount: 1 }
   ]),
   userController.updateUser
 );
+
+router.route("/:id/friends").get(userController.getUserFriends);
 
 module.exports = router;

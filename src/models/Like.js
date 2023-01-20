@@ -3,12 +3,12 @@ module.exports = (sequelize) => {
 
   Like.associate = (db) => {
     Like.belongsTo(db.User, {
-      foriegnKey: { name: "userId", allowNull: false },
+      foreignKey: { name: "userId", allowNull: false },
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT"
     });
     Like.belongsTo(db.Post, {
-      foriegnKey: { name: "postId", allowNull: false },
+      foreignKey: { name: "postId", allowNull: false },
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT"
     });

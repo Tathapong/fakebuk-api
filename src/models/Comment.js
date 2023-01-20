@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
 
   Comment.associate = (db) => {
     Comment.belongsTo(db.User, {
-      foriegnKey: { name: "userId", allowNull: false },
+      foreignKey: { name: "userId", allowNull: false },
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT"
     });
     Comment.belongsTo(db.Post, {
-      foriegnKey: { name: "postId", allowNull: false },
+      foreignKey: { name: "postId", allowNull: false },
       onDelete: "RESTRICT",
       onUpdate: "RESTRICT"
     });
