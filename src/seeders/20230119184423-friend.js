@@ -1,6 +1,6 @@
 "use strict";
 
-const { FRIEND_ACCEPTED } = require("../config/constants");
+const { FRIEND_ACCEPTED, FRIEND_PENDING } = require("../config/constants");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -17,68 +17,89 @@ module.exports = {
 
     // 84 - 101
     return queryInterface.bulkInsert("friends", [
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 84,
+      //   accepter_id: 85
+      // },
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 86,
+      //   accepter_id: 87
+      // },
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 88,
+      //   accepter_id: 89
+      // },
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 88,
+      //   accepter_id: 90
+      // },
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 92,
+      //   accepter_id: 85
+      // },
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 92,
+      //   accepter_id: 86
+      // },
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 92,
+      //   accepter_id: 87
+      // },
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 92,
+      //   accepter_id: 88
+      // },
+      // {
+      //   status: FRIEND_ACCEPTED,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      //   requester_id: 92,
+      //   accepter_id: 89
+      // }
       {
-        status: FRIEND_ACCEPTED,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 84,
-        accepter_id: 85
-      },
-      {
-        status: FRIEND_ACCEPTED,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 86,
-        accepter_id: 87
-      },
-      {
-        status: FRIEND_ACCEPTED,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 88,
-        accepter_id: 89
-      },
-      {
-        status: FRIEND_ACCEPTED,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 88,
-        accepter_id: 90
-      },
-      {
-        status: FRIEND_ACCEPTED,
+        status: FRIEND_PENDING,
         created_at: new Date(),
         updated_at: new Date(),
         requester_id: 92,
-        accepter_id: 85
+        accepter_id: 93
+      },
+      {
+        status: FRIEND_PENDING,
+        created_at: new Date(),
+        updated_at: new Date(),
+        requester_id: 94,
+        accepter_id: 92
       },
       {
         status: FRIEND_ACCEPTED,
         created_at: new Date(),
         updated_at: new Date(),
-        requester_id: 92,
-        accepter_id: 86
-      },
-      {
-        status: FRIEND_ACCEPTED,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 92,
-        accepter_id: 87
-      },
-      {
-        status: FRIEND_ACCEPTED,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 92,
-        accepter_id: 88
-      },
-      {
-        status: FRIEND_ACCEPTED,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 92,
-        accepter_id: 89
+        requester_id: 95,
+        accepter_id: 92
       }
     ]);
   },
@@ -90,5 +111,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+    return queryInterface.bulkDelete("friend", null, {});
   }
 };

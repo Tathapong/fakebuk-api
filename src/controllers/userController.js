@@ -3,6 +3,8 @@ const { User } = require("../models/index");
 const fs = require("fs");
 const AppError = require("../utilities/appError");
 
+const friendService = require("../services/friendService");
+
 exports.updateUser = async (req, res, next) => {
   try {
     const { password, ...updateValue } = req.body; // Not include password (in case of password is avaiable)
@@ -42,10 +44,16 @@ exports.updateUser = async (req, res, next) => {
 
 exports.getUserFriends = async (req, res, next) => {
   try {
-    const id = req.params;
+    const userId = +req.params.id;
+    const meId = +req.user.id;
 
-    const user = await User.findOne({ where: { id }, attributes: { exclude: "password" } });
+    const user = await User.findOne({ where: { id: userId }, attributes: { exclude: "password" }, raw: true });
     if (!user) throw new AppError("user not found", 400);
+
+    const friends = await friendService.findUserFriendsByUserId(meId, userId);
+    const statusWithMe = await friendService.findStatusWithMe(meId, userId);
+
+    res.status(200).json({ user, friends, statusWithMe });
   } catch (err) {
     next(err);
   }
