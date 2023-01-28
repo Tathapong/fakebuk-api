@@ -10,8 +10,7 @@ const {
   FRIEND_STATUS_REQUESTER
 } = require("../config/constants");
 
-//* return array of user's friends by user id
-exports.findUserFriendsByUserId = async (meId, userId) => {
+const findUserFriendIdsByUserId = async (userId) => {
   // Find friend of the user (id) by pass id
   const friends = await Friend.findAll({
     // SELECT * FROM friends WHERE status = 'ACCEPTED' AND (requester_id='2' OR accepter_id = '2')
@@ -19,14 +18,23 @@ exports.findUserFriendsByUserId = async (meId, userId) => {
     raw: true
   });
 
-  // Extract only friend id from Array friends (exclude login user id)
+  // Extract only friend id from Array friends
   const friendIds = friends.map((item) => {
     // if (meId !== item.requesterId && meId !== item.accepterId) {
     return item.requesterId === userId ? item.accepterId : item.requesterId;
     // }
   });
 
+  return friendIds;
+};
+exports.findUserFriendIdsByUserId = findUserFriendIdsByUserId;
+
+//* return array of user's friends by user id
+exports.findUserFriendsByUserId = async (userId) => {
+  const friendIds = await findUserFriendIdsByUserId(userId);
+
   // Get user data (friend data) from User by pass Array of friend if
+
   return User.findAll({ where: { id: friendIds }, attributes: { exclude: "password" } });
 };
 

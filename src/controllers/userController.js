@@ -17,7 +17,7 @@ exports.updateUser = async (req, res, next) => {
         req.files.profileImage[0].path,
         profileImage ? cloudinary.getPublicId(profileImage) : undefined
       ); // upload profile image to cloudinary
-      fs.unlinkSync(req.files.profileImage[0].path); // remove profile image from public/images
+
       updateValue.profileImage = secureUrl;
     }
 
@@ -29,7 +29,7 @@ exports.updateUser = async (req, res, next) => {
         req.files.coverImage[0].path,
         coverImage ? cloudinary.getPublicId(coverImage) : undefined
       ); // upload cover image to cloudinary
-      fs.unlinkSync(req.files.coverImage[0].path); // remove cover image from public/images
+
       updateValue.coverImage = secureUrl;
     }
 
@@ -39,6 +39,9 @@ exports.updateUser = async (req, res, next) => {
     res.status(200).json({ user });
   } catch (err) {
     next(err);
+  } finally {
+    if (req.files.profileImage) fs.unlinkSync(req.files.profileImage[0].path); // remove profile image from public/images
+    if (req.files.coverImage) fs.unlinkSync(req.files.coverImage[0].path); // remove cover image from public/images
   }
 };
 
@@ -50,7 +53,7 @@ exports.getUserFriends = async (req, res, next) => {
     const user = await User.findOne({ where: { id: userId }, attributes: { exclude: "password" }, raw: true });
     if (!user) throw new AppError("user not found", 400);
 
-    const friends = await friendService.findUserFriendsByUserId(meId, userId);
+    const friends = await friendService.findUserFriendsByUserId(userId);
     const statusWithMe = await friendService.findStatusWithMe(meId, userId);
 
     res.status(200).json({ user, friends, statusWithMe });

@@ -10,6 +10,7 @@ const errorMiddleware = require("./middlewares/error");
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
 const friendRoute = require("./routes/friendRoute");
+const postRoute = require("./routes/postRoute");
 
 const authenticate = require("./middlewares/authenticate");
 
@@ -31,6 +32,14 @@ app.use(express.json());
 app.use("/auth", authRoute);
 app.use("/users", authenticate, userRoute);
 app.use("/friends", authenticate, friendRoute);
+app.use("/posts", authenticate, postRoute);
+
+// const { Comment } = require("./models/index");
+
+// app.use("/test", authenticate, async (req, res, next) => {
+//   await Comment.create({ title: "Fun", postId: 17, userId: 90 });
+//   res.send({ message: "OK" });
+// });
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

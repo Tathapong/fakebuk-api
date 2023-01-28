@@ -5,6 +5,21 @@ const { FRIEND_ACCEPTED, FRIEND_PENDING } = require("../config/constants");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    // const friend = [];
+    // for (let i = 84; i < 103; i++) {
+    //   for (let j = i + 1; j <= 103; j++) {
+    //     friend.push({
+    //       status: FRIEND_ACCEPTED,
+    //       created_at: new Date(),
+    //       updated_at: new Date(),
+    //       requester_id: i,
+    //       accepter_id: j
+    //     });
+    //   }
+    // }
+
+    return queryInterface.bulkInsert("friends", friend);
+
     /**
      * Add seed commands here.
      *
@@ -16,92 +31,16 @@ module.exports = {
      */
 
     // 84 - 101
-    return queryInterface.bulkInsert("friends", [
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 84,
-      //   accepter_id: 85
-      // },
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 86,
-      //   accepter_id: 87
-      // },
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 88,
-      //   accepter_id: 89
-      // },
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 88,
-      //   accepter_id: 90
-      // },
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 92,
-      //   accepter_id: 85
-      // },
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 92,
-      //   accepter_id: 86
-      // },
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 92,
-      //   accepter_id: 87
-      // },
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 92,
-      //   accepter_id: 88
-      // },
-      // {
-      //   status: FRIEND_ACCEPTED,
-      //   created_at: new Date(),
-      //   updated_at: new Date(),
-      //   requester_id: 92,
-      //   accepter_id: 89
-      // }
-      {
-        status: FRIEND_PENDING,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 92,
-        accepter_id: 93
-      },
-      {
-        status: FRIEND_PENDING,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 94,
-        accepter_id: 92
-      },
-      {
-        status: FRIEND_ACCEPTED,
-        created_at: new Date(),
-        updated_at: new Date(),
-        requester_id: 95,
-        accepter_id: 92
-      }
-    ]);
+
+    // return queryInterface.bulkInsert("friends", [
+    //   {
+    //     status: FRIEND_ACCEPTED,
+    //     created_at: new Date(),
+    //     updated_at: new Date(),
+    //     requester_id: 95,
+    //     accepter_id: 92
+    //   }
+    // ]);
   },
 
   async down(queryInterface, Sequelize) {
