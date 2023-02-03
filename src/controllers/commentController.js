@@ -11,7 +11,8 @@ const checkAuthorizeEdit = (comment, userId) => {
 const optionComment = (comment) => {
   return {
     where: { id: comment.id },
-    include: { model: User, attributes: { exclude: "password" }, attributes: { exclude: "userId" } }
+    include: { model: User, attributes: { exclude: ["password"] } },
+    attributes: { exclude: "userId" }
   };
 };
 

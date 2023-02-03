@@ -68,13 +68,19 @@ exports.updatePost = async (req, res, next) => {
     const publicId = currentPost.image ? cloudinary.getPublicId(currentPost.image) : undefined; // Check image in post (existing of publicId)
 
     const data = { userId };
-    if (title) data.title = title.trim() ? title.trim() : undefined;
+    if (title) data.title = title.trim();
+    else data.title = "";
+
     if (imageFile) data.image = await cloudinary.upload(imageFile.path, publicId);
-    else if (image) data.image = undefined;
+    else if (image) data.image = image;
     else {
       data.image = null;
       publicId && (await cloudinary.deleteResource(publicId));
     }
+
+    console.log(data);
+
+    if (!data.title && data.image === null) throw new AppError("title or image is required", 400);
 
     await Post.update(data, { where: { id: postId } });
     const post = await Post.findOne(postOption(postId));
