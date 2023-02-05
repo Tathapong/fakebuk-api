@@ -125,6 +125,7 @@ exports.getUserPosts = async (req, res, next) => {
   try {
     const { include } = req.query;
     const userId = +req.params.userId;
+    console.log(include);
 
     const posts = await postService.findUserPost(userId, include);
     res.status(200).json({ posts });
